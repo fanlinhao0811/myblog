@@ -115,14 +115,13 @@
 					<tr>
 						<th>验证码：</th>
 						<td><input id="f_vcode" name="verifyCode" size="6" class="TEXT" type="text">
-							<span><a href="javascript:_rvi()">换另外一个图</a></span>
+							<span><a href="javascript:;" id="change-code">换另外一个图</a></span>
 						</td>
 					</tr>
 					<tr>
 						<th>&nbsp;</th>
-						<td>
-							<img id="img_vcode" alt="..." src="images/captcha.png" style="border: 2px solid rgb(204, 204, 204);" align="absmiddle">
-							<script language="javascript">function _rvi(){document.getElementById('img_vcode').src = '/action/user/captcha?t='+Math.random(1000);}</script>
+						<td id="show-code">
+							<?php echo $img?>
 						</td>
 					</tr>
 					<tr class="buttons">
@@ -151,6 +150,30 @@
 		<script type="text/javascript">
 			$(function(){
 
+				$('#change-code').on('click',function(){
+					$.get('user/change_code',{},function(data){
+						$('#show-code').html(data);
+					},'text');
+				});
+
+				$('#f_email').on('blur',function(){
+					var email = $(this).val();
+//		console.log(email);
+					$.get('user/check_email',{
+						email:email
+					},function(data){
+						if(data == '1'){
+							$('#error_msg').html("邮箱已存在").show("fast");
+						}else{
+							$('#error_msg').hide("fast");
+						}
+					},'text');
+
+				});
+
+
+
+
 				$('#btn-reg').on('click',function(){
 					var email = $('#f_email').val();
 					var name = $('#f_name').val();
@@ -159,7 +182,7 @@
 					var pwd2 = $('#f_pwd2').val();
 					var province = $('#userProvince').val();
 					var city = $('#userCity').val();
-
+					var code = $('#f_vcode').val();
 					$.get('user/add_user',{
 						email:email,
 						name:name,
@@ -167,13 +190,17 @@
 						pwd:pwd,
 						pwd2:pwd2,
 						province:province,
-						city:city
+						city:city,
+						code:code
 					},function(data){
 						if(data == 'pwd-error'){
 							$('#error_msg').html("两次密码不一致");
 							$('#error_msg').show("fast");
+						}else if(data == 'code-error'){
+							$('#error_msg').html("验证码不对");
+							$('#error_msg').show("fast");
 						}else{
-							location.href = 'user/login';
+							location.href = 'user/auto_login?email='+email;
 						}
 
 					},'text');
