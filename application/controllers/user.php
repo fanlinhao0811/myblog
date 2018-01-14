@@ -117,14 +117,15 @@ class User extends CI_Controller {
 		}else{
 			if($result[0]->password == $pwd){
 				$this->session->set_userdata(array(
-				'user'=>$result[0]
-					));
+					'user'=>$result[0]
+				));
 				echo 'success';
 			}else{
 				echo 'password error';
 			}
 		}
 	}
+
 	public function auto_login(){
 		$email = $this->input->get('email');
 		$result = $this->User_model->get_user_by_email($email);
@@ -141,4 +142,10 @@ class User extends CI_Controller {
 		redirect("welcome/index");
 
 	}
+
+	public function admin_index(){
+
+		$this->load->view('adminIndex');
+	}
+
 }
