@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: apple
- * Date: 18/1/11
- * Time: 上午10:40
- */
+
 class User_model extends CI_Model
 {
 
