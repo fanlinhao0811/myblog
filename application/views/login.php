@@ -2,134 +2,129 @@
 <html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Content-Language" content="zh-CN">
-	<title>登录 - SYSIT个人博客</title>
+	<title>Johnny的博客 - SYSIT个人博客</title>
 	<base href="<?php echo site_url()?>">
-	<link rel="stylesheet" href="assets/css/oschina2011.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="assets/css/thickbox.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="assets/css/osc-popup.css" type="text/css" media="screen">
-	<script type="text/javascript" src="assets/js/jquery-1.11.2.js"></script>
-	<script type="text/javascript" src="assets/js/thickbox.js"></script>
-	<script type="text/javascript" src="assets/js/common.js"></script>
+	<link rel="stylesheet" href="assets/css/space2011.css" type="text/css" media="screen">
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.css" media="screen">
+	<script type="text/javascript" src="assets/js/jquery-1.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery_002.js"></script>
+	<script type="text/javascript" src="assets/js/oschina.js"></script>
 
 	<style type="text/css">
-		body,table,input,textarea,select {font-family:Verdana,Simsun,sans-serif;}
+		body,table,input,textarea,select {font-family:Verdana,sans-serif,宋体;}
 	</style>
 </head>
 <body>
-<div id="OSC_Screen">
-	<div id="OSC_Content" class="CenterDiv"><style>
-			#OSC_Footer {border:0;}
-			.MainForm tr.hl th {border:1px solid #C00;border-right:0;background:#FEE;}
-			.MainForm tr.hl td {border:1px solid #C00;border-left:0;background:#FEE;}
-			.MainForm td .nodisp {display:none;padding-left:20px;}
-			.MainForm tr.hl td .nodisp {display:inline;color:#C00;font-size:11pt;}
-			#OSChinaLoginTip {font-size:10.5pt;padding:0 0 20px 10px;color:#060;}
-			#OSChinaLoginTip ul {margin:10px 0 0 0;}
-			#OSChinaLoginTip ul li {float:left; width:90px;margin-right:30px;}
-			#OSChinaLoginTip ul li#openid_gmail img {margin-top:8px;}
-			#OSChinaLoginTip ul li#openid_yahoo img {margin-top:15px;}
-			#OSChinaLoginTip ul li#openid_msn img {}
-			#OSChinaLoginTip ul li a {display:block;height:40px;}
-			#OSChinaLoginTip ul li a {border:1px solid #fff;padding:2px;}
-			#OSChinaLoginTip ul li a:hover {border:1px solid #40AA53;background:#cfc;}
-		</style>
-
-		<div class="MainForm" id="login_page">
-			<form id="frm_login" action="/action/user/login" onsubmit="return false;" method="POST" style="float:left; width:620px;">
-				<h2>登录个人博客，如果尚未加入的请点击<a href="user/reg">注册新会员</a></h2>
-				<div id="error_msg" class="error_msg" style="display:none;"></div>
-				<table>
-					<tbody><tr>
-						<th nowrap="nowrap">邮箱 或 账号：</th>
-						<td><input name="email" id="f_email" class="TEXT" style="width: 200px;" type="text"></td>
-					</tr>
-					<tr>
-						<th>登录密码：</th>
-						<td><input name="pwd" id="f_pwd" class="TEXT" style="width: 200px;" type="password"></td>
-					</tr>
-					<tr>
-						<th>&nbsp;</th>
-						<td><input name="save_login" value="1" checked="checked" type="checkbox"> 记住我的登录信息</td>
-					</tr>
-					<tr class="buttons">
-						<th>&nbsp;</th>
-						<td>
-							<input value="现在登录" id="btn-login" class="BUTTON SUBMIT" type="submit" />
-						</td>
-					</tr>
-					<tr height="40"><th></th><td></td></tr>
-					</tbody></table>
+<!--[if IE 8]>
+<style>ul.tabnav {padding: 3px 10px 3px 10px;}</style>
+<![endif]-->
+<!--[if IE 9]>
+<style>ul.tabnav {padding: 3px 10px 4px 10px;}</style>
+<![endif]-->
+<div id="OSC_Screen"><!-- #BeginLibraryItem "/Library/OSC_Banner.lbi" -->
+	<div id="OSC_Banner">
+		<div id="OSC_Slogon"><?php $user = $this->session->userdata('user');
+			if(isset($user)){
+				echo $user->username."'s Blog";
+			}?></div>
+		<div id="OSC_Channels">
+			<ul>
+				<li><a href="#" class="project"><?php if(isset($user)){echo $user->mood;}?></a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- #EndLibraryItem -->
+	<div id="OSC_Topbar">
+		<div id="VisitorInfo">
+			当前访客身份：
+			<?php
+			if(isset($user)){
+				echo $user->username;
+				?>
+				<a href='user/logout'>退出</a>
+			<?php }else{?>
+				游客 [ <a href="user/login">登录</a> | <a href="user/reg">注册</a> ]
+			<?php }?>
+			<span id="OSC_Notification">
+			<a href="inbox.htm" class="msgbox" title="进入我的留言箱">你有<em>0</em>新留言</a>
+					</span>
+		</div>
+		<div id="SearchBar">
+			<form action="Search">
+				<input name="user" value="154693" type="hidden">
+				<input id="txt_q" name="q" class="SERACH" value="在此空间的博客中搜索" onblur="(this.value=='')?this.value='在此空间的博客中搜索':this.value" onfocus="if(this.value=='在此空间的博客中搜索'){this.value='';};this.select();" type="text">
+				<input class="SUBMIT" value="搜索" type="submit">
 			</form>
-			<div id="login_tip" class="tipbox" style="float:right;width:300px;">
-				<h3>登录后可以？</h3>
-				<ol>
-					<li>参与博客的讨论和评论</li>
-					<li>和别人分享心得</li>
-				</ol>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="OSC_Content"><div class="SpaceChannel">
+			<div id="portrait"><a href="adminIndex.htm"><img src="assets/images/portrait.gif" alt="Johnny" title="Johnny" class="SmallPortrait" user="154693" align="absmiddle"></a></div>
+			<div id="lnks">
+				<strong>Johnny的博客</strong>
+				<div>
+					<a href="#">TA的博客列表</a>&nbsp;|
+					<a href="sendMsg.htm">发送留言</a>
+					</span>
+				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
-		<script type="text/javascript">
+		<div class="BlogList">
 
+			<ul>
 
-			$('#btn-login').on('click',function(){
+				<?php foreach ($list as $article){?>
+					<li class='Blog' id='blog_24027'>
 
-				var email = $('#f_email').val();
-				var pwd = $('#f_pwd').val();
+						<h2 class='BlogAccess_true BlogTop_0'><a href="welcome/blog_detail?id=<?php echo $article->article_id?>"><?php echo $article->title?></a></h2>
 
-				$.get('user/check_login',{
-					email:email,
-					pwd:pwd
-				},function(data){
-					if(data == 'email not exist'){
-						$('#error_msg').html("邮箱不存在");
-						$('#error_msg').show();
-					}else if(data == 'password error'){
-						$('#error_msg').html("密码错误");
-						$('#error_msg').show();
-					}else{
-						location.href = 'welcome/index_logined';
-					}
-				},'text')
+						<div class='outline'>
 
+							<span class='time'>发表于 <?php echo $article->post_date?></span>
 
-			})
+							<span class='catalog'>分类: <a href="?catalog=92334"><?php echo $article->type_name?></a></span>
 
+							<span class='stat'>统计: 0评/<?php echo $article->clicked?>阅</span>
 
+						</div>
 
+						<div class='TextContent' id='blog_content_24027'>
 
+							<?php echo $article->content?>
 
+							<div class='fullcontent'><a href="welcome/blog_detail?id=<?php echo $article->article_id?>">阅读全文...</a></div>
 
+						</div>
 
-			//<!--
-			//$('#f_email').focus();$('#frm_login').ajaxForm({
-			//    beforeSubmit: function(a,f,o) {
-			//		if($('#f_email').val().length == 0){
-			//			$('#f_email').focus();
-			//			$('#error_msg').html("请输入登录的邮箱或者帐号");
-			//			$('#error_msg').show();
-			//			return false;
-			//		}
-			//		if($('#f_pwd').val().length == 0){
-			//			$('#f_pwd').focus();
-			//			$('#error_msg').html("请输入登录密码");
-			//			$('#error_msg').show();
-			//			return false;
-			//		}
-			//    },
-			//    success: function(html) {
-			//    	if(html.length > 0){
-			//    		$('#error_msg').hide();
-			//    		$('#error_msg').html(html);
-			//    		$('#error_msg').show();
-			//    	}else{
-			//			    		location.href="/home/go";
-			//    	}
-			//    }
-			//});
-			//-->
-		</script></div>
+					</li>
+
+				<?php }?>
+			</ul>
+
+			<?php echo $links?>
+
+			<div class="clear"></div>
+		</div>
+		<div class="BlogMenu"><div class="catalogs SpaceModule">
+				<strong>博客分类</strong>
+				<ul class="LinkLine">
+					<?php foreach ($types as $type){?>
+						<li><a href="#"><?php echo $type->type_name.'('.$type->num.')'?></a></li>
+					<?php }?>
+				</ul>
+			</div>
+			<div class="comments SpaceModule">
+				<strong>最新网友评论</strong>
+				<p class="NoData">目前还没有任何评论</p>
+			</div></div>
+		<div class="clear"></div>
+		<script type="text/javascript" src="assets/js/brush.js"></script>
+		<link type="text/css" rel="stylesheet" href="assets/css/shCore.css">
+		<link type="text/css" rel="stylesheet" href="assets/css/shThemeDefault.css"></div>
+	<div class="clear"></div>
 	<div id="OSC_Footer">© 赛斯特(WWW.SYSIT.ORG)</div>
-</div>
 </div>
 </body></html>
